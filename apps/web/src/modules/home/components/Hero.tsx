@@ -96,10 +96,18 @@ export function Hero() {
 
         {/* Portrait */}
         <div className="ap-hero-portrait" style={{ position: 'relative', alignSelf: 'end', aspectRatio: '2 / 3', width: '100%', animation: 'apFadeUp 1.2s ease' }}>
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: "url('/assets/ashish-portrait.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 18%', filter: 'grayscale(0.85) contrast(1.15) brightness(0.78)', maskImage: 'radial-gradient(ellipse 70% 75% at 52% 38%, #000 38%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,0.35) 78%, transparent 95%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 75% at 52% 38%, #000 38%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,0.35) 78%, transparent 95%)' }} />
-          <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${PALETTE.accent}1a 0%, transparent 40%, ${PALETTE.bg} 95%)`, mixBlendMode: 'overlay', maskImage: 'radial-gradient(ellipse 70% 75% at 52% 38%, #000 38%, transparent 90%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 75% at 52% 38%, #000 38%, transparent 90%)' }} />
-          <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 55%, ${PALETTE.bg} 92%)` }} />
-          <div style={{ position: 'absolute', inset: 0, opacity: 0.18, pointerEvents: 'none', backgroundImage: `radial-gradient(${PALETTE.fg} 0.5px, transparent 0.5px)`, backgroundSize: '3px 3px', mixBlendMode: 'overlay' }} />
+          <img
+            src="/assets/ashish-portrait-2.png"
+            alt="Ashish Pandey"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              objectPosition: 'center bottom',
+              filter: 'grayscale(0.6) contrast(1.1) brightness(0.92)',
+              display: 'block',
+            }}
+          />
           <CornerMarks />
           <div style={{ position: 'absolute', left: 0, bottom: -28, fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.18em', color: PALETTE.fgMute }}>FIG.01 — A.P. / 2026</div>
         </div>
