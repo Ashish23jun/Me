@@ -27,7 +27,7 @@ export function CaseHero({ n, name, tagline, live, status, year, role }: CaseHer
       <div style={{
         fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.22em',
         color: PALETTE.fgMute, marginBottom: 36,
-        display: 'flex', gap: 16, alignItems: 'center',
+        display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap',
       }}>
         <span>CASE №{n}</span>
         <span style={{ color: PALETTE.fgFaint }}>·</span>
@@ -38,14 +38,14 @@ export function CaseHero({ n, name, tagline, live, status, year, role }: CaseHer
         <span style={{ color: PALETTE.fgFaint }}>·</span>
         <span>{year}</span>
       </div>
-      <h1 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(80px, 14vw, 220px)', lineHeight: 0.88, letterSpacing: '-0.04em' }}>
+      <h1 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(52px, 14vw, 220px)', lineHeight: 0.88, letterSpacing: '-0.04em' }}>
         {name}<span style={{ color: PALETTE.accent, fontFamily: FONTS.serifIt, fontStyle: 'italic' }}>.</span>
       </h1>
-      <div style={{ marginTop: 36, display: 'grid', gridTemplateColumns: '1fr 320px', gap: 80, alignItems: 'end', paddingTop: 24 }}>
-        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 30, lineHeight: 1.3, letterSpacing: '-0.012em', maxWidth: 760, color: PALETTE.fgSoft }}>
+      <div className="ap-case-hero-meta" style={{ marginTop: 36, display: 'grid', gridTemplateColumns: '1fr 320px', gap: 80, alignItems: 'end', paddingTop: 24 }}>
+        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(20px, 3vw, 30px)', lineHeight: 1.3, letterSpacing: '-0.012em', maxWidth: 760, color: PALETTE.fgSoft }}>
           {tagline}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 28px', paddingLeft: 24, borderLeft: `1px solid ${PALETTE.hairline}` }}>
+        <div className="ap-case-hero-metabox" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px 28px', paddingLeft: 24, borderLeft: `1px solid ${PALETTE.hairline}` }}>
           <Meta k="ROLE" v={role} />
           <Meta k="YEAR" v={year} />
           <Meta k="LIVE" v={<a href={`https://${live}`} target="_blank" rel="noreferrer" className="ap-link" style={{ color: PALETTE.accent }}>{live} ↗</a>} />
@@ -66,14 +66,14 @@ interface CaseSectionProps {
 
 export function CaseSection({ n, kicker, title, children }: CaseSectionProps) {
   return (
-    <section style={{ padding: '100px 56px', borderBottom: `1px solid ${PALETTE.hairline}` }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 48, alignItems: 'start' }}>
+    <section style={{ padding: '80px 56px', borderBottom: `1px solid ${PALETTE.hairline}` }}>
+      <div className="ap-case-section-grid" style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 48, alignItems: 'start' }}>
         <div>
           <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.22em', color: PALETTE.fgMute }}>№{n}</div>
           <div style={{ marginTop: 8, fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.18em', color: PALETTE.accent }}>{kicker}</div>
         </div>
         <div>
-          <h2 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 56, lineHeight: 1.05, letterSpacing: '-0.025em', maxWidth: 880 }}>{title}</h2>
+          <h2 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(32px, 5vw, 56px)', lineHeight: 1.05, letterSpacing: '-0.025em', maxWidth: 880 }}>{title}</h2>
           <div style={{ marginTop: 36 }}>{children}</div>
         </div>
       </div>
@@ -114,9 +114,9 @@ interface MetricItem { v: string; k: string; sub?: string; }
 
 export function MetricGrid({ items }: { items: MetricItem[] }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${items.length}, 1fr)`, borderTop: `1px solid ${PALETTE.hairline}`, borderBottom: `1px solid ${PALETTE.hairline}` }}>
+    <div className="ap-metric-grid" style={{ display: 'grid', gridTemplateColumns: `repeat(${items.length}, 1fr)`, borderTop: `1px solid ${PALETTE.hairline}`, borderBottom: `1px solid ${PALETTE.hairline}` }}>
       {items.map((m, i) => (
-        <div key={i} style={{ padding: '32px 28px', borderRight: i < items.length - 1 ? `1px solid ${PALETTE.hairline}` : 'none' }}>
+        <div key={i} style={{ padding: '28px 20px', borderRight: i < items.length - 1 ? `1px solid ${PALETTE.hairline}` : 'none' }}>
           <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(36px, 4vw, 56px)', lineHeight: 1, letterSpacing: '-0.03em', color: PALETTE.accent }}>{m.v}</div>
           <div style={{ marginTop: 12, fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.14em', color: PALETTE.fgMute }}>{m.k.toUpperCase()}</div>
           {m.sub && <div style={{ marginTop: 6, fontSize: 13, color: PALETTE.fgSoft, fontWeight: 300 }}>{m.sub}</div>}
@@ -204,13 +204,13 @@ interface CaseFooterProps {
 
 export function CaseFooter({ next }: CaseFooterProps) {
   return (
-    <section style={{ padding: '120px 56px' }}>
+    <section style={{ padding: '100px 56px' }}>
       <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.fgMute, marginBottom: 24 }}>NEXT CASE</div>
       <a href={next.href} style={{ display: 'block', borderTop: `1px solid ${PALETTE.hairline}`, borderBottom: `1px solid ${PALETTE.hairline}`, padding: '40px 0', transition: 'padding-left .25s' }}
         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.paddingLeft = '20px'; }}
         onMouseLeave={e => { (e.currentTarget as HTMLElement).style.paddingLeft = '0px'; }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-          <h3 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 84, letterSpacing: '-0.035em', lineHeight: 1 }}>
+        <div className="ap-case-footer-next" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 12 }}>
+          <h3 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(40px, 8vw, 84px)', letterSpacing: '-0.035em', lineHeight: 1 }}>
             {next.name}<span style={{ color: PALETTE.accent, fontStyle: 'italic', fontFamily: FONTS.serifIt }}>.</span>
           </h3>
           <span style={{ fontFamily: FONTS.mono, fontSize: 12, letterSpacing: '0.16em', color: PALETTE.accent }}>READ CASE →</span>

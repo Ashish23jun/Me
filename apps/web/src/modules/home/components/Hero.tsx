@@ -77,7 +77,7 @@ export function Hero() {
           <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.22em', color: PALETTE.fgMute, marginBottom: 36 }}>
             №01 — INDEX <span style={{ color: PALETTE.accent }}>·</span> INDIA · EST. 2002
           </div>
-          <h1 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(72px, 10vw, 168px)', lineHeight: 0.88, letterSpacing: '-0.04em' }}>
+          <h1 className="ap-hero-name" style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(72px, 10vw, 168px)', lineHeight: 0.88, letterSpacing: '-0.04em' }}>
             {typed.replace('.', '')}
             {typed.includes('.') && <span style={{ color: PALETTE.accent, fontStyle: 'italic', fontFamily: FONTS.serifIt }}>.</span>}
             {!done && <Caret w="0.08em" h="0.65em" />}

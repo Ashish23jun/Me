@@ -22,7 +22,7 @@ function CaseCard({ id, n, name, tagline, href, live, status, stack, problem, bu
             <Pill accent pulse>{status}</Pill>
             <a href={`https://${live}`} target="_blank" rel="noreferrer" style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.14em', color: PALETTE.fgMute }} className="ap-link">{live} ↗</a>
           </div>
-          <h3 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 76, lineHeight: 0.95, letterSpacing: '-0.03em' }}>
+          <h3 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(28px, 9vw, 76px)', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
             {name}<span style={{ color: PALETTE.accent, fontFamily: FONTS.serifIt, fontStyle: 'italic' }}>.</span>
           </h3>
           <div style={{ marginTop: 14, fontSize: 19, color: PALETTE.fgSoft, maxWidth: 620, fontWeight: 300, lineHeight: 1.4 }}>{tagline}</div>
@@ -41,7 +41,7 @@ function CaseCard({ id, n, name, tagline, href, live, status, stack, problem, bu
       {/* Expandable body */}
       <div style={{ display: 'grid', gridTemplateRows: open ? '1fr' : '0fr', transition: 'grid-template-rows .45s cubic-bezier(.2,.7,.3,1)' }}>
         <div style={{ overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 280px', gap: 32, paddingTop: 36, opacity: open ? 1 : 0, transition: 'opacity .35s ease .1s' }}>
+          <div className="ap-featured-body-grid" style={{ display: 'grid', gridTemplateColumns: '80px 1fr 280px', gap: 32, paddingTop: 36, opacity: open ? 1 : 0, transition: 'opacity .35s ease .1s' }}>
             <div />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
               <div>
@@ -66,7 +66,7 @@ function CaseCard({ id, n, name, tagline, href, live, status, stack, problem, bu
                 </div>
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 24, paddingLeft: 28, borderLeft: `1px solid ${PALETTE.hairline}` }}>
+            <div className="ap-featured-signals" style={{ display: 'flex', flexDirection: 'column', gap: 24, paddingLeft: 28, borderLeft: `1px solid ${PALETTE.hairline}` }}>
               <div style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.2em', color: PALETTE.fgMute }}>SIGNALS</div>
               {metrics.map((m, i) => (
                 <div key={i}>
@@ -88,7 +88,7 @@ export function FeaturedWork() {
     <section id="work" style={{ padding: '120px 56px' }}>
       <SectionHead n="03" kicker="FEATURED WORK" title="Two builds, end-to-end."
         sub="Both shipped to real users. Each card expands inline for the problem, build, metrics and stack — or open the full case study for the long version." />
-      <div style={{ paddingLeft: 112, display: 'flex', flexDirection: 'column', gap: 0 }}>
+      <div className="ap-case-list" style={{ paddingLeft: 112, display: 'flex', flexDirection: 'column', gap: 0 }}>
         <CaseCard
           id="crelyzor" n="03.1" name="Crelyzor"
           tagline="AI-powered productivity platform — meetings, tasks, identity"

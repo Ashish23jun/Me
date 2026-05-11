@@ -59,9 +59,8 @@ function SelectedRow(item: WorkItem) {
 
   return (
     <div style={{ borderTop: `1px solid ${PALETTE.hairline}` }}>
-
       {/* ── Always-visible row ─────────────────────────── */}
-      <div style={{
+      <div className="ap-selected-row" style={{
         display: 'grid',
         gridTemplateColumns: '80px 1fr 280px',
         gap: 32,
@@ -88,7 +87,7 @@ function SelectedRow(item: WorkItem) {
 
           <h4 style={{
             margin: 0, fontFamily: FONTS.serif, fontWeight: 300,
-            fontSize: 52, letterSpacing: '-0.025em', lineHeight: 1,
+            fontSize: 'clamp(26px, 8vw, 52px)', letterSpacing: '-0.025em', lineHeight: 1,
           }}>{name}</h4>
 
           <p style={{
@@ -133,7 +132,7 @@ function SelectedRow(item: WorkItem) {
         </div>
 
         {/* Signals — always visible */}
-        <div style={{
+        <div className="ap-selected-signals" style={{
           paddingLeft: 28,
           borderLeft: `1px solid ${PALETTE.hairline}`,
           display: 'flex', flexDirection: 'column', gap: 20,
@@ -165,7 +164,7 @@ function SelectedRow(item: WorkItem) {
         transition: 'grid-template-rows .45s cubic-bezier(.2,.7,.3,1)',
       }}>
         <div style={{ overflow: 'hidden' }}>
-          <div style={{
+          <div className="ap-selected-body-grid" style={{
             display: 'grid',
             gridTemplateColumns: '80px 1fr 280px',
             gap: 32, paddingBottom: 40,
@@ -211,7 +210,7 @@ export function SelectedWork() {
   return (
     <section id="selected" style={{ padding: '120px 56px' }}>
       <SectionHead n="04" kicker="SELECTED WORK" title="Where I've shipped." />
-      <div style={{ paddingLeft: 112, display: 'flex', flexDirection: 'column', gap: 0 }}>
+      <div className="ap-case-list" style={{ paddingLeft: 112, display: 'flex', flexDirection: 'column', gap: 0 }}>
         {ITEMS.map(it => <SelectedRow key={it.id} {...it} />)}
       </div>
     </section>

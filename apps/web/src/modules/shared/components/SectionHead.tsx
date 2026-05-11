@@ -22,7 +22,7 @@ export function SectionHead({ n, kicker, title, sub }: SectionHeadProps) {
   }, []);
 
   return (
-    <div ref={ref} style={{
+    <div ref={ref} className="ap-section-head" style={{
       display: 'grid', gridTemplateColumns: '80px 1fr', gap: 32,
       paddingBottom: 28, marginBottom: 56,
       borderBottom: `1px solid ${PALETTE.hairline}`,
@@ -37,11 +37,11 @@ export function SectionHead({ n, kicker, title, sub }: SectionHeadProps) {
         <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent, marginBottom: 14 }}>
           {kicker}
         </div>
-        <h2 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 64, lineHeight: 1, letterSpacing: '-0.025em' }}>
+        <h2 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(28px, 6vw, 64px)', lineHeight: 1.05, letterSpacing: '-0.025em' }}>
           {title}
         </h2>
         {sub && (
-          <div style={{ marginTop: 18, fontSize: 17, color: PALETTE.fgSoft, maxWidth: 640, lineHeight: 1.55, fontWeight: 300 }}>
+          <div style={{ marginTop: 18, fontSize: 'clamp(14px, 4vw, 17px)', color: PALETTE.fgSoft, maxWidth: 640, lineHeight: 1.55, fontWeight: 300 }}>
             {sub}
           </div>
         )}

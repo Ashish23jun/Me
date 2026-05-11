@@ -28,12 +28,12 @@ export function ListeningPage() {
           fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.22em',
           color: PALETTE.fgMute, marginBottom: 36,
         }}>
-          SIDE B — WHAT'S IN MY EARS
+          SIDE B — WHAT’S IN MY EARS
         </div>
 
         <h1 style={{
           margin: 0, fontFamily: FONTS.serif, fontWeight: 300,
-          fontSize: 'clamp(80px, 13vw, 200px)', lineHeight: 0.88,
+          fontSize: 'clamp(64px, 13vw, 200px)', lineHeight: 0.88,
           letterSpacing: '-0.04em',
         }}>
           Listening
@@ -41,10 +41,10 @@ export function ListeningPage() {
         </h1>
 
         <p style={{
-          marginTop: 32, fontSize: 22, color: PALETTE.fgSoft,
+          marginTop: 32, fontSize: 'clamp(17px, 4.5vw, 22px)', color: PALETTE.fgSoft,
           fontWeight: 300, maxWidth: 720, lineHeight: 1.4,
         }}>
-          What's running while I'm shipping. Lo-fi for deep work,
+          What’s running while I’m shipping. Lo-fi for deep work,
           Hindi indie for the long sessions, Bollywood OSTs when the
           build finally goes green.
         </p>

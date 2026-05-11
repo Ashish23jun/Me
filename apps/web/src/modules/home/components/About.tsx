@@ -17,8 +17,8 @@ export function About() {
       <SectionHead n="02" kicker="ABOUT" title="An engineer who finishes."
         sub="I build production systems where the trade-offs are real — video pipelines that move 20GB a day, agent platforms that hold up under load, AI features that ship to thousands of users. I lean into ambiguity, ship fast, and learn faster." />
 
-      <div className="ap-about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 80, paddingLeft: 112 }}>
-        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 30, lineHeight: 1.32, letterSpacing: '-0.012em', color: PALETTE.fg, maxWidth: 720 }}>
+      <div className="ap-about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr minmax(240px, 320px)', gap: 80, paddingLeft: 112 }}>
+        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(18px, 3.5vw, 30px)', lineHeight: 1.32, letterSpacing: '-0.012em', color: PALETTE.fg, maxWidth: 720 }}>
           Right now I'm a <em style={{ fontFamily: FONTS.serifIt, color: PALETTE.accent }}>Founding Engineer</em> at
           Creators Mela, where I designed the FastAPI backend powering a video SaaS that
           renders <span style={{ fontFamily: FONTS.mono, fontSize: 24, color: PALETTE.accent }}>1,000+</span> jobs

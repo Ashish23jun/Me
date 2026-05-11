@@ -29,15 +29,15 @@ interface ChannelRowProps { k: string; label: string; value: string; href: strin
 function ChannelRow({ k, label, value, href, copy }: ChannelRowProps) {
   return (
     <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
-      style={{ display: 'grid', gridTemplateColumns: '120px 1fr auto auto', gap: 24, alignItems: 'center', padding: '20px 0', borderTop: `1px solid ${PALETTE.hairline}`, transition: 'padding-left .25s, background .2s' }}
+      style={{ display: 'grid', gridTemplateColumns: '120px 1fr auto auto', gap: 24, alignItems: 'center', padding: '20px 0', borderTop: `1px solid ${PALETTE.hairline}`, transition: 'padding-left .25s, background .2s', minHeight: 64 }}
       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.paddingLeft = '12px'; (e.currentTarget as HTMLElement).style.background = `linear-gradient(90deg, ${PALETTE.accent}08, transparent 60%)`; }}
       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.paddingLeft = '0'; (e.currentTarget as HTMLElement).style.background = 'transparent'; }}>
       <div style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.18em', color: PALETTE.accent }}>{k}</div>
       <div>
-        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 22, letterSpacing: '-0.012em', color: PALETTE.fg }}>{label}</div>
+        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(16px, 2.5vw, 22px)', letterSpacing: '-0.012em', color: PALETTE.fg }}>{label}</div>
         <div style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.fgMute, marginTop: 2 }}>{value}</div>
       </div>
-      {copy && <div onClick={e => e.preventDefault()}><CopyButton text={copy} /></div>}
+      {copy && <div className="ap-channel-row-copy" onClick={e => e.preventDefault()}><CopyButton text={copy} /></div>}
       <span style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.14em', color: PALETTE.fgSoft }}>{href.startsWith('http') ? '↗' : '→'}</span>
     </a>
   );
@@ -65,12 +65,14 @@ function CalEmbed({ calLink, theme }: { calLink: string; theme: string }) {
   }, [calLink, theme]);
 
   return (
-    <Cal
-      namespace={calLink}
-      calLink={calLink}
-      style={{ width: '100%', height: '100%', overflow: 'scroll' }}
-      config={{ layout: 'month_view' }}
-    />
+    <div className="ap-cal-wrapper" style={{ width: '100%' }}>
+      <Cal
+        namespace={calLink}
+        calLink={calLink}
+        style={{ width: '100%', height: '100%' }}
+        config={{ layout: 'month_view' }}
+      />
+    </div>
   );
 }
 
@@ -145,7 +147,7 @@ function BookingEmbed() {
       </div>
 
       {/* Cal embed — mounts on first selection, animates in */}
-      <div style={{
+      <div className="ap-cal-grid-container" style={{
         display: 'grid',
         gridTemplateRows: selected !== null ? '1fr' : '0fr',
         transition: 'grid-template-rows .45s cubic-bezier(.2,.7,.3,1)',
@@ -175,7 +177,7 @@ export function ContactPage() {
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: PALETTE.good, boxShadow: `0 0 8px ${PALETTE.good}`, animation: 'apBlink 2s ease infinite' }} />
           <span style={{ color: PALETTE.good }}>OPEN TO OPPORTUNITIES — SDE I · SDE II · FOUNDING</span>
         </div>
-        <h1 style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(72px, 11vw, 168px)', lineHeight: 0.92, letterSpacing: '-0.04em', maxWidth: 1200 }}>
+        <h1 className="ap-contact-hero-h1" style={{ margin: 0, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(72px, 11vw, 168px)', lineHeight: 0.92, letterSpacing: '-0.04em', maxWidth: 1200 }}>
           Got something{' '}
           <span style={{ fontFamily: FONTS.serifIt, fontStyle: 'italic', color: PALETTE.accent }}>worth building</span>?<br />
           Let's talk.
@@ -185,30 +187,32 @@ export function ContactPage() {
         </div>
       </section>
 
-      <section style={{ padding: '40px 56px 80px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60 }}>
-        <div>
-          <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent, marginBottom: 18 }}>№01 — REACH ME</div>
-          <ChannelRow k="EMAIL" label="pandey.k.ashish.86@gmail.com" value="usually replies within a day" href="mailto:pandey.k.ashish.86@gmail.com" copy="pandey.k.ashish.86@gmail.com" />
-          <ChannelRow k="LINKEDIN" label="/in/ashish23jun" value="for recruiters + intros" href="https://linkedin.com/in/ashish23jun" />
-          <ChannelRow k="GITHUB" label="@ashish23jun" value="code + side projects" href="https://github.com/Ashish23jun" />
-          <ChannelRow k="X" label="@ig_ashish_23" value="builder + AI eng updates" href="https://twitter.com/ig_ashish_23" />
-          <ChannelRow k="LEETCODE" label="/ashish23june" value="for technical screens" href="https://leetcode.com/ashish23june" />
-          <ChannelRow k="CODEFORCES" label="/ash_lie" value="competitive history" href="https://codeforces.com/profile/ash_lie" />
+      <section style={{ padding: '40px 56px 80px' }}>
+        <div className="ap-contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60 }}>
+          <div>
+            <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent, marginBottom: 18 }}>№01 — REACH ME</div>
+            <ChannelRow k="EMAIL" label="pandey.k.ashish.86@gmail.com" value="usually replies within a day" href="mailto:pandey.k.ashish.86@gmail.com" copy="pandey.k.ashish.86@gmail.com" />
+            <ChannelRow k="LINKEDIN" label="/in/ashish23jun" value="for recruiters + intros" href="https://linkedin.com/in/ashish23jun" />
+            <ChannelRow k="GITHUB" label="@ashish23jun" value="code + side projects" href="https://github.com/Ashish23jun" />
+            <ChannelRow k="X" label="@ig_ashish_23" value="builder + AI eng updates" href="https://twitter.com/ig_ashish_23" />
+            <ChannelRow k="LEETCODE" label="/ashish23june" value="for technical screens" href="https://leetcode.com/ashish23june" />
+            <ChannelRow k="CODEFORCES" label="/ash_lie" value="competitive history" href="https://codeforces.com/profile/ash_lie" />
 
-          <div style={{ marginTop: 48, paddingTop: 28, borderTop: `1px solid ${PALETTE.hairline}`, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-            <Logistics k="LOCATION" v="India 🇮🇳" sub="IST · UTC+5:30" />
-            <Logistics k="WORKING HOURS" v="9am — 1am IST" sub="overlap with US PT mornings + EU afternoons" />
-            <Logistics k="OPEN TO" v="SDE I · SDE II" sub="Founding · Full-time · Remote / relocation" />
-            <Logistics k="RESPONSE" v="< 24 hours" sub="Email beats DMs" />
+            <div className="ap-logistics-grid" style={{ marginTop: 48, paddingTop: 28, borderTop: `1px solid ${PALETTE.hairline}`, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <Logistics k="LOCATION" v="India 🇮🇳" sub="IST · UTC+5:30" />
+              <Logistics k="WORKING HOURS" v="9am — 1am IST" sub="overlap with US PT mornings + EU afternoons" />
+              <Logistics k="OPEN TO" v="SDE I · SDE II" sub="Founding · Full-time · Remote / relocation" />
+              <Logistics k="RESPONSE" v="< 24 hours" sub="Email beats DMs" />
+            </div>
           </div>
-        </div>
 
-        <BookingEmbed />
+          <BookingEmbed />
+        </div>
       </section>
 
       <section style={{ padding: '60px 56px 120px', borderTop: `1px solid ${PALETTE.hairline}` }}>
         <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.fgMute, marginBottom: 24 }}>№03 — OR JUST EMAIL</div>
-        <a href="mailto:pandey.k.ashish.86@gmail.com" style={{ display: 'inline-flex', alignItems: 'center', gap: 24, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(36px, 5vw, 72px)', color: PALETTE.fg, letterSpacing: '-0.025em', borderBottom: `1px solid ${PALETTE.hairline}`, paddingBottom: 16 }} className="ap-link">
+        <a href="mailto:pandey.k.ashish.86@gmail.com" style={{ display: 'inline-flex', alignItems: 'center', gap: 24, fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(36px, 5vw, 72px)', color: PALETTE.fg, letterSpacing: '-0.025em', borderBottom: `1px solid ${PALETTE.hairline}`, paddingBottom: 16 }} className="ap-link ap-contact-email-link">
           pandey.k.ashish.86@gmail.com
           <span style={{ fontSize: 32, color: PALETTE.accent }}>↗</span>
         </a>

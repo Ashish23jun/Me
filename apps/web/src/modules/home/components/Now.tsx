@@ -4,13 +4,13 @@ import { Pill } from '@/modules/shared/components/Pill';
 
 function NowItem({ k, v, sub, pulse }: { k: string; v: string; sub?: string; pulse?: boolean }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 28, paddingBottom: 24, borderBottom: `1px solid ${PALETTE.hairline}` }}>
+    <div className="ap-now-item" style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: 28, paddingBottom: 24, borderBottom: `1px solid ${PALETTE.hairline}` }}>
       <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.18em', color: PALETTE.accent, paddingTop: 6, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
         {pulse && <span style={{ width: 6, height: 6, borderRadius: '50%', background: PALETTE.accent, boxShadow: `0 0 8px ${PALETTE.accent}`, animation: 'apBlink 1.4s ease infinite' }} />}
         {k}
       </div>
       <div>
-        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 26, letterSpacing: '-0.018em', lineHeight: 1.15 }}>{v}</div>
+        <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 'clamp(18px, 4vw, 26px)', letterSpacing: '-0.018em', lineHeight: 1.15 }}>{v}</div>
         {sub && <div style={{ marginTop: 6, fontSize: 14, color: PALETTE.fgMute, fontWeight: 300, lineHeight: 1.5, maxWidth: 460 }}>{sub}</div>}
       </div>
     </div>
