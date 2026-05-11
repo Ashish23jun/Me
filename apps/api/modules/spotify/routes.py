@@ -1,30 +1,26 @@
-from flask import Blueprint, jsonify
-from core.extensions import cache
+from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 from .service import get_now_playing, get_top_tracks
 
-spotify_bp = Blueprint("spotify", __name__, url_prefix="/api/spotify")
+spotify_router = APIRouter(prefix="/api/spotify")
 
 
-@spotify_bp.get("/now-playing")
-@cache.cached(timeout=30, key_prefix="now_playing")
+@spotify_router.get("/now-playing")
 def now_playing():
     try:
-        data = get_now_playing()
-        return jsonify(data)
+        return get_now_playing()
     except Exception as e:
-        return jsonify({"error": str(e)}), 502
+        return JSONResponse({"error": str(e)}, status_code=502)
 
 
-@spotify_bp.get("/top-tracks")
-@cache.cached(timeout=3600, key_prefix="top_tracks")  # hourly — changes slowly
+@spotify_router.get("/top-tracks")
 def top_tracks():
     try:
-        data = get_top_tracks()
-        return jsonify(data)
+        return get_top_tracks()
     except Exception as e:
-        return jsonify({"error": str(e)}), 502
+        return JSONResponse({"error": str(e)}, status_code=502)
 
 
-@spotify_bp.get("/health")
+@spotify_router.get("/health")
 def health():
-    return jsonify({"status": "ok"})
+    return {"status": "ok"}

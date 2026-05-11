@@ -1,6 +1,7 @@
 import base64
 import requests
 from core.config import config
+from core.extensions import ttl_cache
 
 TOKEN_URL = "https://accounts.spotify.com/api/token"
 NOW_PLAYING_URL = "https://api.spotify.com/v1/me/player/currently-playing"
@@ -47,6 +48,7 @@ def _shape_track(item: dict, progress_ms: int, is_playing: bool) -> dict:
     }
 
 
+@ttl_cache(seconds=30)
 def get_now_playing() -> dict:
     token = _get_access_token()
     headers = {"Authorization": f"Bearer {token}"}
@@ -77,6 +79,7 @@ def _get_recently_played(headers: dict) -> dict:
     return _shape_track(track, 0, False)
 
 
+@ttl_cache(seconds=3600)
 def get_top_tracks() -> list[dict]:
     token = _get_access_token()
     headers = {"Authorization": f"Bearer {token}"}

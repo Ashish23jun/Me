@@ -1,23 +1,19 @@
-from flask import Flask
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from core.config import config
-from core.extensions import cors, cache
-from modules.spotify.routes import spotify_bp
+from modules.spotify.routes import spotify_router
 
+app = FastAPI()
 
-def create_app() -> Flask:
-    app = Flask(__name__)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=config.CORS_ORIGINS,
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
-    app.config["CACHE_TYPE"] = "SimpleCache"
-    app.config["CACHE_DEFAULT_TIMEOUT"] = config.CACHE_TTL
-
-    cors.init_app(app, resources={r"/api/*": {"origins": config.CORS_ORIGINS}})
-    cache.init_app(app)
-
-    app.register_blueprint(spotify_bp)
-
-    return app
-
+app.include_router(spotify_router)
 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True, port=5000)
+    import uvicorn
+    uvicorn.run("app:app", host="0.0.0.0", port=5000, reload=True)

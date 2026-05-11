@@ -5,8 +5,17 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 API="$ROOT/apps/api"
 WEB="$ROOT/apps/web"
 
-# Colors
 G='\033[0;32m'; Y='\033[0;33m'; R='\033[0;31m'; NC='\033[0m'
+
+# Find next available port starting from $1
+find_port() {
+  local port=$1
+  while lsof -ti :"$port" &>/dev/null; do
+    echo -e "${Y}  Port $port in use — trying $((port + 1))${NC}" >&2
+    port=$((port + 1))
+  done
+  echo "$port"
+}
 
 cleanup() {
   echo -e "\n${Y}Shutting down...${NC}"
@@ -16,7 +25,7 @@ cleanup() {
 trap cleanup INT TERM
 
 # ── API ────────────────────────────────────────────────────────
-echo -e "${G}▶ Starting Flask API...${NC}"
+echo -e "${G}▶ Starting FastAPI...${NC}"
 
 if [ ! -f "$API/.env" ]; then
   echo -e "${Y}  No .env found — copying .env.example${NC}"
@@ -31,7 +40,8 @@ fi
 source "$API/.venv/bin/activate"
 pip install -q -r "$API/requirements.txt"
 
-(cd "$API" && python app.py) &
+API_PORT=$(find_port 5000)
+(cd "$API" && uvicorn app:app --host 0.0.0.0 --port "$API_PORT" --reload) &
 API_PID=$!
 
 # ── Web ────────────────────────────────────────────────────────
@@ -42,13 +52,14 @@ if [ ! -d "$WEB/node_modules" ]; then
   (cd "$WEB" && npm install)
 fi
 
-(cd "$WEB" && npm run dev) &
+WEB_PORT=$(find_port 5173)
+(cd "$WEB" && npm run dev -- --port "$WEB_PORT") &
 WEB_PID=$!
 
-# ── Wait ───────────────────────────────────────────────────────
+# ── Summary ────────────────────────────────────────────────────
 echo -e "\n${G}✓ Running:${NC}"
-echo -e "  API  → http://localhost:5000"
-echo -e "  Web  → http://localhost:5173/listening"
-echo -e "\n${Y}Press Ctrl+C to stop both${NC}\n"
+echo -e "  API  → http://localhost:${API_PORT}"
+echo -e "  Web  → http://localhost:${WEB_PORT}"
+echo -e "\n${Y}Press Ctrl+C to stop both  ·  run ./kill.sh to force-kill${NC}\n"
 
 wait

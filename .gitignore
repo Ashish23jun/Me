@@ -99,3 +99,4 @@ logs/
 *.swo
 .tmp/
 tmp/
+# Note: __pycache__/ and *.py[cod] above already cover ALL .pyc/.pyo/.pyd files
