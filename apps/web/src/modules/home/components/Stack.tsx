@@ -3,11 +3,11 @@ import { SectionHead } from '@/modules/shared/components/SectionHead';
 
 const GROUPS = [
   { k: 'LANGUAGES', items: ['JavaScript', 'TypeScript', 'Python', 'Java'] },
-  { k: 'FRONTEND', items: ['React', 'Next.js', 'Angular', 'Tailwind', 'React Query', 'Redux'] },
-  { k: 'BACKEND', items: ['Node.js', 'Express', 'Hono', 'FastAPI', 'Django', 'Bun', 'GraphQL', 'RabbitMQ', 'Kafka'] },
-  { k: 'DATA', items: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL', 'Drizzle', 'Pinecone'] },
-  { k: 'INFRA', items: ['AWS · S3 · EC2 · Lambda', 'Docker', 'CI/CD', 'FreeSWITCH'] },
-  { k: 'AI / TOOLS', items: ['OpenAI', 'Deepgram', 'Sarvam AI', 'Remotion', 'Claude', 'Cursor'] },
+  { k: 'FRONTEND',  items: ['React', 'Next.js', 'Angular', 'Tailwind', 'TanStack Query', 'Zustand', 'shadcn/ui', 'Redux'] },
+  { k: 'BACKEND',   items: ['Node.js', 'Express', 'Hono', 'FastAPI', 'Django', 'Bun', 'GraphQL', 'Prisma', 'Bull', 'RabbitMQ', 'Kafka', 'Resend'] },
+  { k: 'DATA',      items: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL', 'Drizzle', 'Pinecone', 'Google Cloud Storage'] },
+  { k: 'INFRA',     items: ['GCP · Cloud Run', 'AWS · S3 · EC2 · Lambda', 'Vercel', 'Docker', 'CI/CD', 'FreeSWITCH'] },
+  { k: 'AI / TOOLS',items: ['Gemini', 'OpenAI', 'Deepgram', 'Recall.ai', 'Sarvam AI', 'Remotion', 'Claude', 'Cursor'] },
 ];
 
 export function Stack() {
