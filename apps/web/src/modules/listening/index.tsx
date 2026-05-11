@@ -2,7 +2,7 @@ import { PALETTE, FONTS } from '@tokens';
 import { CustomCursor } from '../shared/components/CustomCursor';
 import { Navigation } from '../shared/components/Navigation';
 import { NowPlayingCard } from './components/NowPlayingCard';
-import { SpotifyEmbed } from './components/SpotifyEmbed';
+import { TopTracksSection } from './components/TopTracksSection';
 import { MoodMap } from './components/MoodMap';
 
 function SectionLabel({ n, label }: { n: string; label: string }) {
@@ -54,26 +54,17 @@ export function ListeningPage() {
       <section style={{ padding: '40px 56px 60px' }}>
         <SectionLabel n="№01" label="NOW PLAYING" />
         <NowPlayingCard />
-        <div style={{
-          marginTop: 14, fontFamily: FONTS.mono, fontSize: 11,
-          color: PALETTE.fgMute, lineHeight: 1.6, maxWidth: 760,
-        }}>
-          <span style={{ color: PALETTE.accent }}>// note</span>
-          {' '}— wire to the live Spotify Web API by setting{' '}
-          <code style={{ color: PALETTE.fg }}>SPOTIFY_REFRESH_TOKEN</code> in{' '}
-          <code style={{ color: PALETTE.fg }}>apps/api/.env</code>. Card auto-polls every 30s.
-        </div>
       </section>
 
-      {/* Playlist embed */}
+      {/* Top Tracks */}
       <section style={{ padding: '40px 56px 60px' }}>
-        <SectionLabel n="№02" label="ON ROTATION" />
-        <SpotifyEmbed />
+        <SectionLabel n="№02" label="MOST PLAYED" />
+        <TopTracksSection />
       </section>
 
       {/* Mood map */}
       <section style={{ padding: '60px 56px 120px' }}>
-        <SectionLabel n="№03" label="GENRE / MOOD MAP" />
+        <SectionLabel n="№03" label="MOOD MAP" />
         <MoodMap />
       </section>
 

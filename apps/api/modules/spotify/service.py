@@ -5,6 +5,7 @@ from core.config import config
 TOKEN_URL = "https://accounts.spotify.com/api/token"
 NOW_PLAYING_URL = "https://api.spotify.com/v1/me/player/currently-playing"
 RECENTLY_PLAYED_URL = "https://api.spotify.com/v1/me/player/recently-played?limit=1"
+TOP_TRACKS_URL = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10"
 
 
 def _get_access_token() -> str:
@@ -74,3 +75,27 @@ def _get_recently_played(headers: dict) -> dict:
         return {"isPlaying": False, "title": None}
     track = items[0]["track"]
     return _shape_track(track, 0, False)
+
+
+def get_top_tracks() -> list[dict]:
+    token = _get_access_token()
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(TOP_TRACKS_URL, headers=headers, timeout=8)
+    resp.raise_for_status()
+    tracks = resp.json().get("items", [])
+    result = []
+    for i, item in enumerate(tracks):
+        album = item.get("album", {})
+        images = album.get("images", [])
+        result.append({
+            "rank": i + 1,
+            "title": item.get("name", ""),
+            "artist": ", ".join(a["name"] for a in item.get("artists", [])),
+            "album": album.get("name", ""),
+            "albumArt": images[-1]["url"] if images else None,  # smallest image
+            "durationMs": item.get("duration_ms", 0),
+            "durationLabel": _ms_to_str(item.get("duration_ms", 0)),
+            "url": item.get("external_urls", {}).get("spotify", ""),
+            "popularity": item.get("popularity", 0),
+        })
+    return result

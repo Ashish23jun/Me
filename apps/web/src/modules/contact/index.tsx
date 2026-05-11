@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cal, { getCalApi } from '@calcom/embed-react';
 import { PALETTE, FONTS } from '@tokens';
 import { CustomCursor } from '@/modules/shared/components/CustomCursor';
 import { Navigation } from '@/modules/shared/components/Navigation';
 import { useUIStore } from '@/modules/shared/store/uiStore';
 
-function useCalUrl(slug: string) {
-  const theme = useUIStore(s => s.theme);
-  return `https://cal.com/${slug}?embed=1&theme=${theme}`;
-}
+const BOOKING_OPTIONS = [
+  { slug: '',                         label: '15 Min Intro',    duration: '15m', sub: 'via Crelyzor — built by me',     via: 'Crelyzor',  href: 'https://crelyzor.app/schedule/ashish-pandey/15-min-introduction' },
+  { slug: 'ashish23jun/15-min-intro', label: '15 Min Intro',    duration: '15m', sub: 'Quick chat · Google Meet',       via: 'Cal.com',   href: null },
+  { slug: 'ashish23jun/30min',        label: '30 Min Session',  duration: '30m', sub: 'Architecture · code review',     via: 'Cal.com',   href: null },
+];
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -51,60 +53,118 @@ function Logistics({ k, v, sub }: { k: string; v: string; sub: string }) {
   );
 }
 
-function BookingEmbed({ calUrl }: { calUrl: string }) {
+function CalEmbed({ calLink, theme }: { calLink: string; theme: string }) {
+  useEffect(() => {
+    getCalApi({ namespace: calLink }).then(cal => {
+      cal('ui', {
+        theme: theme as 'dark' | 'light',
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      });
+    });
+  }, [calLink, theme]);
+
+  return (
+    <Cal
+      namespace={calLink}
+      calLink={calLink}
+      style={{ width: '100%', height: '100%', overflow: 'scroll' }}
+      config={{ layout: 'month_view' }}
+    />
+  );
+}
+
+function BookingEmbed() {
+  const [selected, setSelected] = useState<number | null>(null);
+  const theme = useUIStore(s => s.theme);
+
   return (
     <div>
-      <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent, marginBottom: 18 }}>№02 — BOOK A 15-MIN INTRO</div>
-
-      {/* Cal.com iframe */}
-      <div style={{ border: `1px solid ${PALETTE.hairline}`, background: PALETTE.bgRaised, overflow: 'hidden' }}>
-        <iframe
-          src={calUrl}
-          width="100%"
-          height="640"
-          frameBorder={0}
-          loading="lazy"
-          style={{ display: 'block' }}
-          title="Book a call"
-        />
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 24 }}>
+        <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent }}>№02 — BOOK A CALL</div>
+        <button
+          onClick={() => setSelected(null)}
+          style={{
+            background: 'transparent', border: 'none', cursor: 'pointer',
+            fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.14em',
+            color: PALETTE.fgMute, display: 'flex', alignItems: 'center', gap: 6,
+            padding: 0, transition: 'color .15s, opacity .2s',
+            opacity: selected !== null ? 1 : 0, pointerEvents: selected !== null ? 'auto' : 'none',
+          }}
+          onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = PALETTE.fg}
+          onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = PALETTE.fgMute}
+        >
+          ← BACK
+        </button>
       </div>
 
-      {/* Crelyzor alt — blocked by X-Frame-Options, open in new tab instead */}
-      <a
-        href="https://crelyzor.app/schedule/ashish-pandey/15-min-introduction"
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          marginTop: 12,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '14px 18px',
-          border: `1px solid ${PALETTE.hairline}`,
-          background: 'transparent',
-          transition: 'border-color .15s, background .15s',
-          textDecoration: 'none',
-        }}
-        onMouseEnter={e => {
-          (e.currentTarget as HTMLElement).style.borderColor = PALETTE.accent;
-          (e.currentTarget as HTMLElement).style.background = `${PALETTE.accent}08`;
-        }}
-        onMouseLeave={e => {
-          (e.currentTarget as HTMLElement).style.borderColor = PALETTE.hairline;
-          (e.currentTarget as HTMLElement).style.background = 'transparent';
-        }}
-      >
-        <div>
-          <div style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.16em', color: PALETTE.accent, marginBottom: 4 }}>OR BOOK VIA MY OWN APP</div>
-          <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 18, color: PALETTE.fg, letterSpacing: '-0.01em' }}>Crelyzor — 15-min intro</div>
-          <div style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.fgMute, marginTop: 2 }}>crelyzor.app/schedule/ashish-pandey/15-min-introduction</div>
+      {/* Picker — collapses smoothly when something is selected */}
+      <div style={{
+        display: 'grid',
+        gridTemplateRows: selected === null ? '1fr' : '0fr',
+        transition: 'grid-template-rows .45s cubic-bezier(.2,.7,.3,1)',
+      }}>
+        <div style={{ overflow: 'hidden', opacity: selected === null ? 1 : 0, transition: 'opacity .2s' }}>
+          {BOOKING_OPTIONS.map((o, i) => (
+            <button
+              key={`${o.via}-${o.duration}-${i}`}
+              onClick={() => o.href ? window.open(o.href, '_blank') : setSelected(i)}
+              style={{
+                background: 'transparent', border: 'none', borderTop: `1px solid ${PALETTE.hairline}`,
+                cursor: 'pointer', textAlign: 'left', padding: '24px 0',
+                paddingLeft: 0, transition: 'padding-left .2s',
+                display: 'block', width: '100%',
+              }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.paddingLeft = '10px'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.paddingLeft = '0'}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                <span style={{
+                  fontFamily: FONTS.serif, fontWeight: 300, fontSize: 28,
+                  letterSpacing: '-0.015em', color: PALETTE.fg,
+                }}>{o.label}</span>
+                <span style={{
+                  fontFamily: FONTS.mono, fontSize: 9, letterSpacing: '0.14em',
+                  color: o.via === 'Crelyzor' ? PALETTE.accent : PALETTE.fgFaint,
+                  border: `1px solid ${o.via === 'Crelyzor' ? PALETTE.accent : PALETTE.hairline}`,
+                  padding: '2px 7px',
+                }}>{o.via}{o.href ? ' ↗' : ''}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{
+                  fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.12em',
+                  color: PALETTE.fgMute, background: PALETTE.hairline, padding: '3px 8px',
+                }}>⏱ {o.duration}</span>
+                <span style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.1em', color: PALETTE.fgFaint }}>{o.sub}</span>
+              </div>
+            </button>
+          ))}
+          <div style={{ borderTop: `1px solid ${PALETTE.hairline}` }} />
         </div>
-        <span style={{ fontFamily: FONTS.mono, fontSize: 18, color: PALETTE.accent }}>↗</span>
-      </a>
+      </div>
+
+      {/* Cal embed — mounts on first selection, animates in */}
+      <div style={{
+        display: 'grid',
+        gridTemplateRows: selected !== null ? '1fr' : '0fr',
+        transition: 'grid-template-rows .45s cubic-bezier(.2,.7,.3,1)',
+      }}>
+        <div style={{
+          overflow: 'hidden',
+          opacity: selected !== null ? 1 : 0,
+          transition: 'opacity .3s ease .2s',
+        }}>
+          {selected !== null && (
+            <CalEmbed calLink={BOOKING_OPTIONS[selected].slug} theme={theme} />
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
 export function ContactPage() {
-  const calUrl = useCalUrl('ashish23jun/15-min-intro');
   return (
     <>
       <CustomCursor />
@@ -143,7 +203,7 @@ export function ContactPage() {
           </div>
         </div>
 
-        <BookingEmbed calUrl={calUrl} />
+        <BookingEmbed />
       </section>
 
       <section style={{ padding: '60px 56px 120px', borderTop: `1px solid ${PALETTE.hairline}` }}>

@@ -11,6 +11,18 @@ export interface NowPlaying {
   url: string;
 }
 
+export interface TopTrack {
+  rank: number;
+  title: string;
+  artist: string;
+  album: string;
+  albumArt: string | null;
+  durationMs: number;
+  durationLabel: string;
+  url: string;
+  popularity: number;
+}
+
 export interface MoodItem {
   key: string;
   value: string;
