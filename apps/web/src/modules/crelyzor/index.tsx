@@ -45,7 +45,7 @@ export function CrelyzorPage() {
       <CaseHero
         n="03.1" name="Crelyzor"
         tagline={<>AI-powered productivity platform — <em style={{ fontFamily: FONTS.serifIt, color: PALETTE.accent }}>meetings, tasks, identity</em></>}
-        live="crelyzor.app" status="LIVE" year="2024 — 2025" role="Fullstack · end-to-end solo build"
+        live="crelyzor.app" status="LIVE" year="Dec 2025 — Present" role="Fullstack · end-to-end solo build"
       />
 
       <CaseSection n="01" kicker="THE PROBLEM" title="Meetings make context. Almost none of it survives.">
