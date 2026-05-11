@@ -42,7 +42,7 @@ function TopNav() {
         <a href="#work" className="ap-link">WORK</a>
         <a href="#about" className="ap-link">ABOUT</a>
         <a href="#stack" className="ap-link">STACK</a>
-        <a href="#now" className="ap-link">NOW</a>
+        <a href="#selected" className="ap-link">NOW</a>
         <a href="/listening" className="ap-link">LISTENING</a>
         <a href="/contact" className="ap-link" style={{ color: PALETTE.fg }}>CONTACT ↗</a>
         <ThemeToggle />

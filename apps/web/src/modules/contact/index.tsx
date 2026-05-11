@@ -1,9 +1,13 @@
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import { PALETTE, FONTS } from '@tokens';
 import { CustomCursor } from '@/modules/shared/components/CustomCursor';
 import { Navigation } from '@/modules/shared/components/Navigation';
+import { useUIStore } from '@/modules/shared/store/uiStore';
 
-const CAL_EMBED_URL = 'https://cal.com/ashish23jun/intro-call?embed=true&theme=dark';
+function useCalUrl(slug: string) {
+  const theme = useUIStore(s => s.theme);
+  return `https://cal.com/${slug}?embed=1&theme=${theme}`;
+}
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -47,7 +51,60 @@ function Logistics({ k, v, sub }: { k: string; v: string; sub: string }) {
   );
 }
 
+function BookingEmbed({ calUrl }: { calUrl: string }) {
+  return (
+    <div>
+      <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent, marginBottom: 18 }}>№02 — BOOK A 15-MIN INTRO</div>
+
+      {/* Cal.com iframe */}
+      <div style={{ border: `1px solid ${PALETTE.hairline}`, background: PALETTE.bgRaised, overflow: 'hidden' }}>
+        <iframe
+          src={calUrl}
+          width="100%"
+          height="640"
+          frameBorder={0}
+          loading="lazy"
+          style={{ display: 'block' }}
+          title="Book a call"
+        />
+      </div>
+
+      {/* Crelyzor alt — blocked by X-Frame-Options, open in new tab instead */}
+      <a
+        href="https://crelyzor.app/schedule/ashish-pandey/15-min-introduction"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          marginTop: 12,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '14px 18px',
+          border: `1px solid ${PALETTE.hairline}`,
+          background: 'transparent',
+          transition: 'border-color .15s, background .15s',
+          textDecoration: 'none',
+        }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLElement).style.borderColor = PALETTE.accent;
+          (e.currentTarget as HTMLElement).style.background = `${PALETTE.accent}08`;
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLElement).style.borderColor = PALETTE.hairline;
+          (e.currentTarget as HTMLElement).style.background = 'transparent';
+        }}
+      >
+        <div>
+          <div style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '0.16em', color: PALETTE.accent, marginBottom: 4 }}>OR BOOK VIA MY OWN APP</div>
+          <div style={{ fontFamily: FONTS.serif, fontWeight: 300, fontSize: 18, color: PALETTE.fg, letterSpacing: '-0.01em' }}>Crelyzor — 15-min intro</div>
+          <div style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.fgMute, marginTop: 2 }}>crelyzor.app/schedule/ashish-pandey/15-min-introduction</div>
+        </div>
+        <span style={{ fontFamily: FONTS.mono, fontSize: 18, color: PALETTE.accent }}>↗</span>
+      </a>
+    </div>
+  );
+}
+
 export function ContactPage() {
+  const calUrl = useCalUrl('ashish23jun/15-min-intro');
   return (
     <>
       <CustomCursor />
@@ -86,15 +143,7 @@ export function ContactPage() {
           </div>
         </div>
 
-        <div>
-          <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '0.2em', color: PALETTE.accent, marginBottom: 18 }}>№02 — BOOK A 15-MIN INTRO</div>
-          <div style={{ border: `1px solid ${PALETTE.hairline}`, background: PALETTE.bgRaised, overflow: 'hidden', minHeight: 680 }}>
-            <iframe src={CAL_EMBED_URL} width="100%" height="680" frameBorder={0} loading="lazy" style={{ display: 'block', background: PALETTE.bgRaised }} title="Book a call" />
-          </div>
-          <div style={{ marginTop: 14, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.fgMute, lineHeight: 1.6 }}>
-            <span style={{ color: PALETTE.accent }}>// note</span> — replace <code style={{ color: PALETTE.fg }}>CAL_EMBED_URL</code> with your real Cal.com slug.
-          </div>
-        </div>
+        <BookingEmbed calUrl={calUrl} />
       </section>
 
       <section style={{ padding: '60px 56px 120px', borderTop: `1px solid ${PALETTE.hairline}` }}>

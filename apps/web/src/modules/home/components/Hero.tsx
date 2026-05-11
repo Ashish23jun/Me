@@ -112,8 +112,7 @@ export function Hero() {
           <IndexLine n="03" label="Work Holo" href="#work-holo" tag="case" />
           <IndexLine n="04" label="Selected work" href="#selected" />
           <IndexLine n="05" label="Stack" href="#stack" />
-          <IndexLine n="06" label="Now" href="#now" tag="live" pulse />
-          <IndexLine n="07" label="Contact" href="#contact" />
+          <IndexLine n="06" label="Contact" href="#contact" />
           <div style={{ marginTop: 24, paddingTop: 18, borderTop: `1px solid ${PALETTE.hairline}`, color: PALETTE.fg, fontSize: 11 }}>
             <div style={{ color: PALETTE.fgMute, marginBottom: 6 }}>NOW</div>
             <div>Founding Eng @ Creators Mela</div>

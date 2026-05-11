@@ -4,9 +4,9 @@ import { SectionHead } from '@/modules/shared/components/SectionHead';
 const GROUPS = [
   { k: 'LANGUAGES', items: ['JavaScript', 'TypeScript', 'Python', 'Java'] },
   { k: 'FRONTEND', items: ['React', 'Next.js', 'Angular', 'Tailwind', 'React Query', 'Redux'] },
-  { k: 'BACKEND', items: ['Node.js', 'Express', 'Hono', 'FastAPI', 'Django', 'Bun', 'GraphQL'] },
+  { k: 'BACKEND', items: ['Node.js', 'Express', 'Hono', 'FastAPI', 'Django', 'Bun', 'GraphQL', 'RabbitMQ', 'Kafka'] },
   { k: 'DATA', items: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL', 'Drizzle', 'Pinecone'] },
-  { k: 'INFRA', items: ['AWS · S3 · EC2 · Lambda', 'Docker', 'RabbitMQ', 'Kafka', 'CI/CD', 'FreeSWITCH'] },
+  { k: 'INFRA', items: ['AWS · S3 · EC2 · Lambda', 'Docker', 'CI/CD', 'FreeSWITCH'] },
   { k: 'AI / TOOLS', items: ['OpenAI', 'Deepgram', 'Sarvam AI', 'Remotion', 'Claude', 'Cursor'] },
 ];
 
