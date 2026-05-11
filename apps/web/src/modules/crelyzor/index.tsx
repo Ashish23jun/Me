@@ -32,29 +32,27 @@ export function CrelyzorPage() {
   return (
     <>
       <CustomCursor />
-      <CaseNav current="03.2 / Crelyzor" />
+      <CaseNav current="03.1 / Crelyzor" />
 
       <CaseHero
-        n="03.2" name="Crelyzor"
-        tagline={<>An AI-powered productivity platform that <em style={{ fontFamily: FONTS.serifIt, color: PALETTE.accent }}>turns meetings into work</em> — auto-recording, transcription with diarization, AI summaries, and structured tasks linked back to the moment they were said.</>}
+        n="03.1" name="Crelyzor"
+        tagline={<>AI-powered productivity platform — <em style={{ fontFamily: FONTS.serifIt, color: PALETTE.accent }}>meetings, tasks, identity</em></>}
         live="crelyzor.app" status="LIVE" year="2024 — 2025" role="Fullstack · end-to-end build"
       />
 
       <CaseSection n="01" kicker="THE PROBLEM" title="Meetings make context. Almost none of it survives.">
         <Prose>
-          <p>Every meeting produces a mountain of decisions, action items, and context — and almost none of it makes it into your task list. The tools you might use to fix this are unbundled: one records, one transcribes, one extracts action items, another schedules.</p>
-          <p>Crelyzor is the unified surface — meetings, tasks, scheduling, identity — with AI doing the connective tissue. Real-time meeting intelligence on the recording side; structured tasks on the output side; global search tying them together.</p>
+          <p>Meetings produce a mountain of context that never makes it into your task list. Existing tools record OR transcribe OR extract action items — none unify scheduling, identity, and post-meeting follow-through in one place.</p>
         </Prose>
       </CaseSection>
 
       <CaseSection n="02" kicker="WHAT I BUILT" title="End-to-end, full-stack.">
         <BuildList items={[
-          { h: 'Real-time meeting intelligence', b: 'Auto-recording, transcription with speaker diarization, and AI summarization. Every meeting comes out searchable, attributed, and summarized.' },
-          { h: 'Automatic task extraction', b: 'Conversations become structured to-dos, each linked back to the source moment in the recording. One click jumps you to the sentence the task came from.' },
-          { h: 'Smart scheduling + calendar sync', b: 'Two-way calendar sync (Google, iCal). Meetings, tasks, and contacts share a unified schema so scheduling never desyncs from the work.' },
-          { h: 'Global search across the surface', b: 'One query searches meetings, transcripts, tasks, and contacts. Built on a hybrid of MongoDB text search and structured Postgres lookups.' },
-          { h: 'Shareable digital identity cards', b: 'A modern business-card layer that sits on top of the productivity stack — your work context becomes your introduction.' },
-          { h: 'Hybrid real-time + async pipelines', b: 'Deepgram for transcription, OpenAI for summaries and task extraction, S3 for media, EC2 for steady-state workloads. Pipeline scales horizontally per stage.' },
+          { h: 'Real-time meeting intelligence', b: 'Auto-recording, transcription with speaker diarization, AI summarization, action-item extraction.' },
+          { h: 'Automatic task extraction', b: 'Conversations become structured to-dos linked back to the source moment in the recording.' },
+          { h: 'Smart scheduling + calendar sync', b: 'Global search across meetings, tasks, and contacts.' },
+          { h: 'Shareable digital identity cards', b: 'A modern business-card layer that sits on top of the productivity stack.' },
+          { h: 'Hybrid real-time + async pipelines', b: 'Deepgram for transcription, OpenAI for summaries, S3 for media, EC2 for steady-state workloads.' },
         ]} />
       </CaseSection>
 
@@ -78,10 +76,7 @@ export function CrelyzorPage() {
 
       <CaseSection n="05" kicker="STACK" title="What's underneath.">
         <StackBlock groups={[
-          { k: 'FRONTEND',  items: ['Next.js', 'React', 'TypeScript', 'Tailwind'] },
-          { k: 'BACKEND',   items: ['Node.js', 'TypeScript', 'Microservices', 'REST + WebSocket'] },
-          { k: 'DATA',      items: ['PostgreSQL', 'MongoDB', 'S3 (media)'] },
-          { k: 'AI / INFRA',items: ['OpenAI', 'Deepgram', 'AWS EC2', 'Async queues'] },
+          { k: '', items: ['Next.js', 'React', 'Node.js', 'TypeScript', 'PostgreSQL', 'MongoDB', 'OpenAI', 'Deepgram', 'AWS S3 / EC2'] },
         ]} />
       </CaseSection>
 
