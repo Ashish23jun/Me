@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@tokens': resolve(__dirname, '../../packages/tokens/index.ts'),
+      '@tokens': resolve(__dirname, './src/tokens/index.ts'),
       '@': resolve(__dirname, './src'),
     },
   },
