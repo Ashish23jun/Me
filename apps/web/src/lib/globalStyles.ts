@@ -133,6 +133,7 @@ export function injectGlobalStyles() {
       .ap-nav { padding: 16px 24px !important; }
       .ap-nav-links { display: none !important; }
       .ap-nav-hamburger { display: flex !important; }
+      .ap-nav-hamburger-theme { display: inline-flex !important; }
 
       /* Section headers */
       .ap-section-head { grid-template-columns: 1fr !important; gap: 8px !important; }
