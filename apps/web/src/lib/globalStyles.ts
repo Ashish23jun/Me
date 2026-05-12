@@ -1,6 +1,6 @@
 import { DARK, LIGHT, FONTS } from '@tokens';
 
-function vars(p: typeof DARK) {
+function vars(p: typeof DARK | typeof LIGHT) {
   return `
     --ap-bg:            ${p.bg};
     --ap-bg-raised:     ${p.bgRaised};
